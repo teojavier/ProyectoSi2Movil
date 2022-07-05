@@ -1,6 +1,7 @@
 import 'package:appmovil/Models/Atencion.dart';
 import 'package:appmovil/Models/Productos.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ProductCard extends StatelessWidget {
   final Productos producto;
@@ -18,7 +19,7 @@ class ProductCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _BackgroundImage(),
+            _BackgroundImage(producto.imagen),
             _ProductDetail(
                 producto.nombre,
                 producto.precio,
@@ -119,6 +120,8 @@ class _ProductDetail extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
+  final String? imagen;
+  const _BackgroundImage(this.imagen);
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -126,10 +129,9 @@ class _BackgroundImage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 500,
-        child: FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://1.bp.blogspot.com/-XdN0Kf19nJ8/WIpVQvbedZI/AAAAAAAAEcI/aZhbIUyKXcoQoRvDgmi3FM5_PQLDk-p4wCLcB/s1600/La%2Bmarca%2Bdel%2Bproducto%2BDefinici%25C3%25B3n%252C%2Bclasificaci%25C3%25B3n%252C%2Bc%25C3%25B3mo%2Bnacen%2By%2Bm%25C3%25A1s.jpg'),
-          fit: BoxFit.cover,
+        child: WebView(
+          initialUrl: imagen!,
+          javascriptMode: JavascriptMode.unrestricted,
         ),
       ),
     );

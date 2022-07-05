@@ -5,18 +5,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends ChangeNotifier {
   UserModel? user;
-Future<String> login(String email, String password) async {
-    var response = await http.post(
-        Uri.parse('http://3.89.88.173/api/login'),
+  String _nombre = '';
+  String _email = '';
+
+  get nombre {
+    return _nombre;
+  }
+
+  get email {
+    return _email;
+  }
+
+  Future<String> login(String email, String password) async {
+    var response = await http.post(Uri.parse('http://3.89.88.173/api/login'),
         body: ({
           'email': email,
           'password': password,
         }));
-    print(response.body);
     if (response.body.contains('email')) {
-      user = UserModel.fromJson(response.body);
+      this.user = UserModel.fromJson(response.body);
       SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('user_id', user!.id.toString());
+      pref.setString('id', user!.id.toString());
+      pref.setString('name', user!.name.toString());
+      pref.setString('email', user!.email.toString());
+      pref.setString('direccion', user!.direccion.toString());
+      pref.setString('carnet', user!.ci.toString());
+      pref.setString('telefono', user!.telefono.toString());
+      this._nombre = user!.name;
+      this._email = user!.email;
     }
 
     return response.body;

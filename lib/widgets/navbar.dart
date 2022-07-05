@@ -1,14 +1,21 @@
+import 'package:appmovil/screens/editar_perfil.dart';
+import 'package:appmovil/screens/password.dart';
+import 'package:appmovil/screens/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:appmovil/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authservice = Provider.of<AuthService>(context);
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('accountName'),
-            accountEmail: Text('accountEmail'),
+            accountName: Text(authservice.nombre),
+            accountEmail: Text(authservice.email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
@@ -30,28 +37,62 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.add),
             title: Text('Agregar Pedido'),
-            onTap: () => print('add'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AgregarPedidos()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.poll),
             title: Text('Pedidos'),
-            onTap: () => print('ped'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Pedidos()),
+              );
+            },
           ),
-          Divider(),
+          Divider(
+            thickness: 3,
+            indent: 15,
+            endIndent: 15,
+          ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Editar Perfil'),
-            onTap: () => print('edit'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditarPerfil()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.verified_user_sharp),
             title: Text('Cambiar Contraseña'),
-            onTap: () => print('password'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Password()),
+              );
+            },
+          ),
+          Divider(
+            thickness: 3,
+            indent: 15,
+            endIndent: 15,
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Cerrar Sesión'),
-            onTap: () => print('logout'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
           ),
         ],
       ),

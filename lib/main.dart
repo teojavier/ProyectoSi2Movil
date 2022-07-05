@@ -2,6 +2,7 @@ import 'package:appmovil/screens/screens.dart';
 import 'package:appmovil/services/atencion_service.dart';
 import 'package:appmovil/services/configuracion_service.dart';
 import 'package:appmovil/services/auth_service.dart';
+import 'package:appmovil/services/editPerfil_service.dart';
 import 'package:appmovil/services/productos_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class _AppStateState extends State<AppState> {
         ChangeNotifierProvider(create: (_) => AtencionService()),
         ChangeNotifierProvider(create: (_) => ConfiguracionService()),
         ChangeNotifierProvider(create: (_) => ProductoService()),
+        ChangeNotifierProvider(create: (_) => EditarPerfilService()),
       ],
       child: MyApp(),
     );
@@ -33,12 +35,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tienda',
-      initialRoute: 'webview',
+      initialRoute: 'login',
       routes: { 
         'login': ( _ ) =>LoginScreen(),
         'home' : ( _ ) => HomeScreen(),
         'webview' : ( _ ) => Webvieww(),
         'atencion' : ( _ ) => AtencionScreen(),
+        'editar_perfil' : ( _ ) => EditarPerfil(),
+        'password' : ( _ ) => Password(),
+        'pedidos' : ( _ ) => Pedidos(),
+        'agregar_pedidos' : ( _ ) => AgregarPedidos(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.grey[300],
@@ -46,10 +52,6 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           color: Colors.red
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Color.fromARGB(255, 136, 17, 17),
-          elevation: 0
-        )
       ),
     );
   }
