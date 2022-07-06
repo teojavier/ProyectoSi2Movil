@@ -3,6 +3,7 @@ import 'package:appmovil/services/atencion_service.dart';
 import 'package:appmovil/services/configuracion_service.dart';
 import 'package:appmovil/services/auth_service.dart';
 import 'package:appmovil/services/editPerfil_service.dart';
+import 'package:appmovil/services/pedidos_service.dart';
 import 'package:appmovil/services/productos_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class _AppStateState extends State<AppState> {
         ChangeNotifierProvider(create: (_) => ConfiguracionService()),
         ChangeNotifierProvider(create: (_) => ProductoService()),
         ChangeNotifierProvider(create: (_) => EditarPerfilService()),
+        ChangeNotifierProvider(create: (_) => PedidosService()),
       ],
       child: MyApp(),
     );
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tienda',
-      initialRoute: 'login',
+      initialRoute: 'pedidos',
       routes: { 
         'login': ( _ ) =>LoginScreen(),
         'home' : ( _ ) => HomeScreen(),
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         'atencion' : ( _ ) => AtencionScreen(),
         'editar_perfil' : ( _ ) => EditarPerfil(),
         'password' : ( _ ) => Password(),
-        'pedidos' : ( _ ) => Pedidos(),
+        'pedidos' : ( _ ) => PedidosLista(),
         'agregar_pedidos' : ( _ ) => AgregarPedidos(),
       },
       theme: ThemeData.light().copyWith(

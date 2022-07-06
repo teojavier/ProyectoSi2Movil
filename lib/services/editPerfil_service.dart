@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appmovil/Models/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +12,7 @@ class EditarPerfilService extends ChangeNotifier {
   String? _carnet = '';
   String? _direccion = '';
   String? _telefono = '';
+  UserModel? cliente;
 
   get id {
     return _id;
@@ -35,7 +38,7 @@ class EditarPerfilService extends ChangeNotifier {
     return _telefono;
   }
 
-    EditarPerfilService(){
+  EditarPerfilService() {
     this.cambiarDatos();
   }
 
@@ -49,5 +52,49 @@ class EditarPerfilService extends ChangeNotifier {
     this._telefono = pref.getString('telefono');
     this._direccion = pref.getString('direccion');
     notifyListeners();
+  }
+
+  Future<String> edit(String nameE, String emailE, String ciE,
+      String direccionE, String telefonoE) async {
+    notifyListeners();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? user_id = pref.getString('user_id');
+
+    var response = await http.post(
+        Uri.parse('http://3.89.88.173/api/updatePerfil/' + user_id!),
+        body: ({
+          'name': nameE,
+          'email': emailE,
+          'ci': ciE,
+          'direccion': direccionE,
+          'telefono': telefonoE,
+        }));
+    final body = jsonDecode(response.body);
+    this._name = '${body['name']}';
+    this._email = '${body['email']}';
+    this._carnet = '${body['ci']}';
+    this._telefono = '${body['telefono']}';
+    this._direccion = '${body['direccion']}';
+
+    print(response.body);
+    notifyListeners();
+    return response.body;
+  }
+
+    Future<String> updatePassword(String newpass, String newnewpass) async {
+    notifyListeners();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? user_id = pref.getString('user_id');
+
+    var response = await http.post(
+        Uri.parse('http://3.89.88.173/api/updatePassword/' + user_id!),
+        body: ({
+          'newpass': newpass,
+          'newnewpass': newnewpass,
+        }));
+    final body = jsonDecode(response.body);
+    print(response.body);
+    notifyListeners();
+    return response.body;
   }
 }
