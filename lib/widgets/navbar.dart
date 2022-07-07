@@ -35,6 +35,21 @@ class Navbar extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: Icon(Icons.shop_two),
+            title: Text('Productos'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
+          ),
+          Divider(
+            thickness: 3,
+            indent: 15,
+            endIndent: 15,
+          ),
+          ListTile(
             leading: Icon(Icons.add),
             title: Text('Agregar Pedido'),
             onTap: () {

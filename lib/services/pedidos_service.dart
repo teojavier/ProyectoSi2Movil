@@ -12,7 +12,9 @@ class PedidosService extends ChangeNotifier{
   bool isLoading = true;
 
   PedidosService(){
+    notifyListeners();
     this.loadPedidos();
+    notifyListeners();
   }
 
   Future<List<Pedidos>> loadPedidos() async{

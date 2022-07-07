@@ -1,4 +1,6 @@
+import 'package:appmovil/screens/Pedidos_productos.dart';
 import 'package:appmovil/screens/screens.dart';
+import 'package:appmovil/services/addproductos_service.dart';
 import 'package:appmovil/services/atencion_service.dart';
 import 'package:appmovil/services/configuracion_service.dart';
 import 'package:appmovil/services/auth_service.dart';
@@ -25,6 +27,7 @@ class _AppStateState extends State<AppState> {
         ChangeNotifierProvider(create: (_) => ProductoService()),
         ChangeNotifierProvider(create: (_) => EditarPerfilService()),
         ChangeNotifierProvider(create: (_) => PedidosService()),
+        ChangeNotifierProvider(create: (_) => AddProductoService()),
       ],
       child: MyApp(),
     );

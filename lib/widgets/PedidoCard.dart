@@ -1,12 +1,14 @@
 import 'package:appmovil/Models/Atencion.dart';
 import 'package:appmovil/Models/Pedidos.dart';
+import 'package:appmovil/screens/Pedidos_productos.dart';
 import 'package:appmovil/screens/screens.dart';
+import 'package:appmovil/services/pedidos_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PedidoCard extends StatelessWidget {
   final Pedidos pedido;
-
   const PedidoCard({Key? key, required this.pedido}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -160,7 +162,7 @@ class _PedidoDetail extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(builder: (context) => AddProductos(idpedido: id!)),
                 );
               },
             ),
