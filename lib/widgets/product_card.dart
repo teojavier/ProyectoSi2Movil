@@ -14,18 +14,13 @@ class ProductCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10, bottom: 20), //es solo para el card
         width: double.infinity,
-        height: 500,
+        height: 550,
         decoration: _carBorders(),
-        child: Stack(
-          alignment: Alignment.bottomLeft,
+        child: Column(
           children: [
             _BackgroundImage(producto.imagen),
-            _ProductDetail(
-                producto.nombre,
-                producto.precio,
-                producto.descripcion,
-                'producto.marcaId',
-                'producto.categoriaId'),
+            _ProductDetail(producto.nombre, producto.precio,
+                producto.descripcion, producto.marca, producto.categoria, producto.stock),
           ],
         ),
       ),
@@ -47,8 +42,9 @@ class _ProductDetail extends StatelessWidget {
   final String? descripcion;
   final String? marcaId;
   final String? categoriaId;
+  final int? stock;
   const _ProductDetail(this.nombre, this.precio, this.descripcion, this.marcaId,
-      this.categoriaId);
+      this.categoriaId, this.stock);
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +53,13 @@ class _ProductDetail extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
-        height: 120,
+        height: 140,
         decoration: _buildBoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Producto:  ' + nombre!,
+              'Nombre:  ' + nombre!,
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -107,6 +103,15 @@ class _ProductDetail extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
+            Text(
+              'Stock:  ' + stock.toString(),
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
       ),
@@ -128,7 +133,7 @@ class _BackgroundImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(25),
       child: Container(
         width: double.infinity,
-        height: 500,
+        height: 400,
         child: WebView(
           initialUrl: imagen!,
           javascriptMode: JavascriptMode.unrestricted,

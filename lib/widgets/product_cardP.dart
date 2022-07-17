@@ -3,6 +3,7 @@ import 'package:appmovil/Models/Productos.dart';
 import 'package:appmovil/providers/addProducto_form_provider.dart';
 import 'package:appmovil/screens/Pedidos_productos.dart';
 import 'package:appmovil/services/addproductos_service.dart';
+import 'package:appmovil/services/pedidos_service.dart';
 import 'package:appmovil/ui/input_decorations_pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -11,10 +12,10 @@ import 'package:appmovil/providers/editPerfil_form_provider.dart';
 import 'package:appmovil/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-
 class ProductCardP extends StatelessWidget {
   final Productos producto;
   final int idpedido;
+ 
   const ProductCardP({Key? key, required this.producto, required this.idpedido})
       : super(key: key);
   @override
@@ -24,7 +25,7 @@ class ProductCardP extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10, bottom: 20), //es solo para el card
         width: double.infinity,
-        height: 550,
+        height: 570,
         decoration: _carBorders(),
         child: Column(
           children: [
@@ -34,7 +35,8 @@ class ProductCardP extends StatelessWidget {
                 producto.precio,
                 producto.descripcion,
                 producto.stock,
-                'producto.categoriaId',
+                producto.categoria,
+                producto.marca,
                 idpedido,
                 producto.id),
           ],
@@ -58,10 +60,11 @@ class _ProductDetail extends StatelessWidget {
   final String? descripcion;
   final int? stock;
   final String? categoriaId;
+  final String? marcaId;
   final int? idpedido;
   final int? idproducto;
   const _ProductDetail(this.nombre, this.precio, this.descripcion, this.stock,
-      this.categoriaId, this.idpedido, this.idproducto);
+      this.categoriaId, this.marcaId, this.idpedido, this.idproducto);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +73,7 @@ class _ProductDetail extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
-        height: 240,
+        height: 260,
         decoration: _buildBoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,6 +101,24 @@ class _ProductDetail extends StatelessWidget {
                   precio! +
                   '  Bs   |------|  Stock:  ' +
                   stock.toString(),
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              'Categoria:  ' + categoriaId!,
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              'Marca:  ' + marcaId!,
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -199,8 +220,12 @@ class _AddProducto extends StatelessWidget {
                                   addProductoForm.idproducto!);
 
                           print(respuesta);
-                          if (respuesta.contains('id')) {
+                          if (respuesta.contains('nombre')) {
                             addProductoForm.isLoading = false;
+                            final pedidoService = Provider.of<PedidosService>(
+                                context,
+                                listen: false);
+                            pedidoService.actualiazarPedidos();
                             Navigator.pushReplacementNamed(context, 'pedidos');
                             return showDialog(
                               context: context,
@@ -213,7 +238,8 @@ class _AddProducto extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddProductos(idpedido: idpedido!)),
+                                  builder: (context) =>
+                                      AddProductos(idpedido: idpedido!)),
                             );
                             return showDialog(
                               context: context,

@@ -17,7 +17,7 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<String> login(String email, String password) async {
-    var response = await http.post(Uri.parse('http://3.89.88.173/api/login'),
+    var response = await http.post(Uri.parse('https://proyectosi2360.herokuapp.com/api/login'),
         body: ({
           'email': email,
           'password': password,

@@ -10,7 +10,6 @@ class AddProductos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productoService = Provider.of<ProductoService>(context);
-
     return Scaffold(
       drawer: Navbar(),
       appBar: AppBar(

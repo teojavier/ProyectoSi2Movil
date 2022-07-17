@@ -1,3 +1,8 @@
+// To parse this JSON data, do
+//
+//     final productos = productosFromMap(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Productos> productosFromMap(String str) => List<Productos>.from(json.decode(str).map((x) => Productos.fromMap(x)));
@@ -12,8 +17,8 @@ class Productos {
         required this.precio,
         required this.stock,
         required this.imagen,
-        required this.categoriaId,
-        required this.marcaId,
+        required this.categoria,
+        required this.marca,
     });
 
     int id;
@@ -22,8 +27,8 @@ class Productos {
     String precio;
     int stock;
     String imagen;
-    int categoriaId;
-    int marcaId;
+    String categoria;
+    String marca;
 
     factory Productos.fromMap(Map<String, dynamic> json) => Productos(
         id: json["id"],
@@ -32,8 +37,8 @@ class Productos {
         precio: json["precio"],
         stock: json["stock"],
         imagen: json["imagen"],
-        categoriaId: json["categoria_id"],
-        marcaId: json["marca_id"],
+        categoria: json["categoria"],
+        marca: json["marca"],
     );
 
     Map<String, dynamic> toMap() => {
@@ -43,7 +48,7 @@ class Productos {
         "precio": precio,
         "stock": stock,
         "imagen": imagen,
-        "categoria_id": categoriaId,
-        "marca_id": marcaId,
+        "categoria": categoria,
+        "marca": marca,
     };
 }

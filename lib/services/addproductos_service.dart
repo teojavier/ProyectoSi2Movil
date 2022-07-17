@@ -26,7 +26,7 @@ class AddProductoService extends ChangeNotifier {
     notifyListeners();
 
     var response = await http.post(
-        Uri.parse('http://3.89.88.173/api/addProducto'),
+        Uri.parse('https://proyectosi2360.herokuapp.com/api/addProducto'),
         body: ({
           'cantidad': cant.toString(),
           'idpedido': pe.toString(),

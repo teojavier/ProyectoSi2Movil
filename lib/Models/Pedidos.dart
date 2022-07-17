@@ -25,7 +25,7 @@ class Pedidos {
     String estadoPago;
     dynamic fechaEntrega;
     DateTime? fechaPedido;
-    String total;
+    String? total;
     int clienteId;
     int tipoEnvioId;
     int tipoPagoId;

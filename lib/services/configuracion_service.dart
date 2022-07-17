@@ -23,7 +23,7 @@ class ConfiguracionService extends ChangeNotifier {
   Future<String> obtenerConf() async {
     notifyListeners();
     final response =
-        await http.get(Uri.parse('http://3.89.88.173/api/configuration'));
+        await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/configuration'));
     final body = jsonDecode(response.body);
     print('${body['razon_social']}');
     print(body);

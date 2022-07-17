@@ -1,12 +1,18 @@
 import 'package:appmovil/screens/Pedidos_productos.dart';
+import 'package:appmovil/screens/pedido_detalle.dart';
 import 'package:appmovil/screens/screens.dart';
+import 'package:appmovil/services/addPedido_service.dart';
 import 'package:appmovil/services/addproductos_service.dart';
 import 'package:appmovil/services/atencion_service.dart';
 import 'package:appmovil/services/configuracion_service.dart';
 import 'package:appmovil/services/auth_service.dart';
+import 'package:appmovil/services/detalle_pedido_services.dart';
 import 'package:appmovil/services/editPerfil_service.dart';
 import 'package:appmovil/services/pedidos_service.dart';
 import 'package:appmovil/services/productos_service.dart';
+import 'package:appmovil/services/promocion_service.dart';
+import 'package:appmovil/services/tipoEnvio_service.dart';
+import 'package:appmovil/services/tipoPago_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 void main() => runApp(AppState());
@@ -28,6 +34,11 @@ class _AppStateState extends State<AppState> {
         ChangeNotifierProvider(create: (_) => EditarPerfilService()),
         ChangeNotifierProvider(create: (_) => PedidosService()),
         ChangeNotifierProvider(create: (_) => AddProductoService()),
+        ChangeNotifierProvider(create: (_) => DetalleService()),
+        ChangeNotifierProvider(create: (_) => TipoPagoService()),
+        ChangeNotifierProvider(create: (_) => TipoEnvioService()),
+        ChangeNotifierProvider(create: (_) => PromocionService()),
+        ChangeNotifierProvider(create: (_) => AddPedidoService()),
       ],
       child: MyApp(),
     );
@@ -40,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tienda',
-      initialRoute: 'pedidos',
+      initialRoute: 'agregar_pedidos',
       routes: { 
         'login': ( _ ) =>LoginScreen(),
         'home' : ( _ ) => HomeScreen(),

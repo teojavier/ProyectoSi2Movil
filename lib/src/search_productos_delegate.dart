@@ -22,7 +22,7 @@ class SearchProductoDelegate extends SearchDelegate<Productos> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(onPressed: () {
-      close(context, Productos(id: 0, nombre: 'a', descripcion: 'descripcion', precio: 'precio', stock: 0, imagen: 'imagen', categoriaId: 0, marcaId: 0));
+      close(context, Productos(id: 0, nombre: 'a', descripcion: 'descripcion', precio: 'precio', stock: 0, imagen: 'imagen', categoria: 'categoria', marca: 'marca'));
     }, icon: const Icon(Icons.arrow_back_ios_new));
   }
 

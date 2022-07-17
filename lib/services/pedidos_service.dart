@@ -7,14 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PedidosService extends ChangeNotifier{
-  late final List<Pedidos> pedidos = [];
+  late List<Pedidos> pedidos = [];
   late Pedidos selectedAtencion;
   bool isLoading = true;
 
   PedidosService(){
-    notifyListeners();
     this.loadPedidos();
-    notifyListeners();
   }
 
   Future<List<Pedidos>> loadPedidos() async{
@@ -25,9 +23,9 @@ class PedidosService extends ChangeNotifier{
     //String? user_id = pref.getString('user_id');
     String? user_id = '3';
 
-    final response = await http.get(Uri.parse('http://3.89.88.173/api/pedidos/'+ user_id));
-    print(response);
-    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id));
+    //print(response);
+    //print('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     
     final List<dynamic> pedidoMap = json.decode(response.body);
 
@@ -39,4 +37,26 @@ class PedidosService extends ChangeNotifier{
     notifyListeners();
     return this.pedidos;
   }
+
+    void actualiazarPedidos() async{
+    notifyListeners();
+    this.pedidos = [];
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    //String? user_id = pref.getString('user_id');
+    String? user_id = '3';
+    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id));
+    //print(response);
+    //print('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    final List<dynamic> pedidoMap = json.decode(response.body);
+
+    pedidoMap.forEach((element) { 
+      final pedidoMap = Pedidos.fromMap(element);
+      this.pedidos.add(pedidoMap);
+    });
+    //this.isLoading = true;
+    notifyListeners();
+  }
+
+
+
 }

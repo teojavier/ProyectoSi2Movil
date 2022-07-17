@@ -1,6 +1,11 @@
 import 'package:appmovil/screens/editar_perfil.dart';
 import 'package:appmovil/screens/password.dart';
 import 'package:appmovil/screens/screens.dart';
+import 'package:appmovil/services/pedidos_service.dart';
+import 'package:appmovil/services/productos_service.dart';
+import 'package:appmovil/services/promocion_service.dart';
+import 'package:appmovil/services/tipoEnvio_service.dart';
+import 'package:appmovil/services/tipoPago_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appmovil/services/auth_service.dart';
@@ -38,6 +43,9 @@ class Navbar extends StatelessWidget {
             leading: Icon(Icons.shop_two),
             title: Text('Productos'),
             onTap: () {
+              final productoService =
+                  Provider.of<ProductoService>(context, listen: false);
+              productoService.actualizarProductos();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -53,6 +61,15 @@ class Navbar extends StatelessWidget {
             leading: Icon(Icons.add),
             title: Text('Agregar Pedido'),
             onTap: () {
+              final tipopagooService =
+                  Provider.of<TipoPagoService>(context, listen: false);
+              tipopagooService.actualizarTipoPago();
+              final tipoEnvioService =
+                  Provider.of<TipoEnvioService>(context, listen: false);
+              tipoEnvioService.actualizarTipoEnvios();
+              final promocionService =
+                  Provider.of<PromocionService>(context, listen: false);
+              promocionService.actualizarPromociones();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AgregarPedidos()),
@@ -63,6 +80,9 @@ class Navbar extends StatelessWidget {
             leading: Icon(Icons.poll),
             title: Text('Pedidos'),
             onTap: () {
+              final pedidoService =
+                  Provider.of<PedidosService>(context, listen: false);
+              pedidoService.actualiazarPedidos();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PedidosLista()),

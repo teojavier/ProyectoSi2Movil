@@ -2,9 +2,12 @@ import 'package:appmovil/Models/Atencion.dart';
 import 'package:appmovil/Models/Pedidos.dart';
 import 'package:appmovil/screens/Pedidos_productos.dart';
 import 'package:appmovil/screens/screens.dart';
+import 'package:appmovil/services/detalle_pedido_services.dart';
 import 'package:appmovil/services/pedidos_service.dart';
+import 'package:appmovil/services/productos_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PedidoCard extends StatelessWidget {
@@ -160,9 +163,13 @@ class _PedidoDetail extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   )),
               onPressed: () {
+                final productoService =
+                    Provider.of<ProductoService>(context, listen: false);
+                productoService.actualizarProductos();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddProductos(idpedido: id!)),
+                  MaterialPageRoute(
+                      builder: (context) => AddProductos(idpedido: id!)),
                 );
               },
             ),
@@ -179,10 +186,19 @@ class _PedidoDetail extends StatelessWidget {
                     'Detalle',
                     style: TextStyle(color: Colors.white),
                   )),
-              onPressed: () {
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.setString('id_pedido', id.toString());
+                pref.setString('id_detalle', '');
+                String? id_pedido = pref.getString('id_pedido');
+                print(id_pedido);
+                final detalleService =
+                    Provider.of<DetalleService>(context, listen: false);
+                detalleService.actualizarDetalles();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => Pedido_detalle(idpedido: id!)),
                 );
               },
             )

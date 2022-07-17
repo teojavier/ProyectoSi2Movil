@@ -61,7 +61,7 @@ class EditarPerfilService extends ChangeNotifier {
     String? user_id = pref.getString('user_id');
 
     var response = await http.post(
-        Uri.parse('http://3.89.88.173/api/updatePerfil/' + user_id!),
+        Uri.parse('http://127.0.0.1/Proyecto%20SI2/public/api/updatePerfil/' + user_id!),
         body: ({
           'name': nameE,
           'email': emailE,
