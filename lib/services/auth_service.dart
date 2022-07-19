@@ -25,6 +25,7 @@ class AuthService extends ChangeNotifier {
     if (response.body.contains('email')) {
       this.user = UserModel.fromJson(response.body);
       SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('user_id', user!.id.toString());
       pref.setString('id', user!.id.toString());
       pref.setString('name', user!.name.toString());
       pref.setString('email', user!.email.toString());

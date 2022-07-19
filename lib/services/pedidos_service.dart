@@ -20,10 +20,9 @@ class PedidosService extends ChangeNotifier{
     notifyListeners();
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    //String? user_id = pref.getString('user_id');
-    String? user_id = '3';
+    String? user_id = pref.getString('user_id');
 
-    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id));
+    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id!));
     //print(response);
     //print('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     
@@ -42,9 +41,8 @@ class PedidosService extends ChangeNotifier{
     notifyListeners();
     this.pedidos = [];
     SharedPreferences pref = await SharedPreferences.getInstance();
-    //String? user_id = pref.getString('user_id');
-    String? user_id = '3';
-    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id));
+    String? user_id = pref.getString('user_id');
+    final response = await http.get(Uri.parse('https://proyectosi2360.herokuapp.com/api/pedidos/'+ user_id!));
     //print(response);
     //print('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     final List<dynamic> pedidoMap = json.decode(response.body);

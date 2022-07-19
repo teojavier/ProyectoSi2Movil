@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tienda',
-      initialRoute: 'agregar_pedidos',
+      initialRoute: 'login',
       routes: { 
         'login': ( _ ) =>LoginScreen(),
         'home' : ( _ ) => HomeScreen(),
